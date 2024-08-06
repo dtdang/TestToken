@@ -1,13 +1,45 @@
 name: test-token
 
+# plugins:
+#   - name: solidity
+#   - name: foundry
+#   - name: safe
+#   - name: tokens
+
+# ethereum:
+#   local:
+#     default_provider: foundry
+# geth:
+#   ethereum:
+#     sepolia:
+#       uri:https://ethereum-sepolia-rpc.publicnode.com
+
+# foundry:
+#   fork:
+#     ethereum:
+#       mainnet:
+#         upstream_provider: alchemy
+
 ethereum:
+  default_network: local
   local:
     default_provider: foundry
+# test:
+#   coverage:
+#     reports:
+#       terminal:
+#         verbose: True
+#       html: True
+#     exclude:
+#       - method_name: DEBUG_*
 
-test:
-  coverage:
-    reports:
-      terminal:
-        verbose: True
-    exclude:
-      - method_name: DEBUG_*
+dependencies:
+  - name: openzeppelin
+    github: OpenZeppelin/openzeppelin-contracts
+    version: 4.4.2
+
+deployments:
+  ethereum:
+    sepolia:
+      - contract_type: TestToken
+        address: $TEST_TOKEN
